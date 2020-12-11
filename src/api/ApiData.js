@@ -4,7 +4,7 @@ export const backEndDevURL = 'http://localhost:1337'
 export const frontEndDevURL = 'http://localhost:3000'
 
 export const backEndProURL = 'https://strapi-mongo-cloudinary.herokuapp.com'
-export const frontEndProURL = 'https://unruffled-keller-be5c6d.netlify.app'
+export const frontEndProURL = 'https://jinzhu-game.netlify.app'
 
 
 export const getUserData = () =>{
