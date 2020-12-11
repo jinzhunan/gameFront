@@ -123,7 +123,7 @@ const Tetris = () => {
             <ButtonGroup fullWidth>
               <Button color="secondary" variant="contained" style={{margin: '5px'}} onClick={()=> movePlayer(-1)}>left</Button>
               <Button color="secondary" variant="contained" style={{margin: '5px'}} onClick={()=> playerRotate(stage, 1)}>rotate</Button>
-              <Button color="secondary" variant="contained" style={{margin: '5px'}} onClick={()=> dropPlayer()}>down</Button>
+              <Button color="secondary" variant="contained" style={{margin: '5px'}}>down</Button>
               <Button color="secondary" variant="contained" style={{margin: '5px'}} onClick={()=> movePlayer(1)}>right</Button>
             </ButtonGroup>
           </div>
