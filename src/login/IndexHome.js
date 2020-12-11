@@ -6,13 +6,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import {Card, CardContent, CardActions, Button, Grid, Box} from '@material-ui/core';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 
 import axios from 'axios'
@@ -83,6 +80,7 @@ const IndexHome = () => {
   const [jwt, setJwt] = useState(localStorage.getItem('jwt'))
   const [user, setUser] = useState({name: localStorage.getItem('userName'), role: localStorage.getItem('userRole'), id: localStorage.getItem('userId')})
   const [isLogin, setIsLogin] = useState(false)
+  const [message, setMessage] = useState(null)
 
     useEffect(() => {
      
@@ -114,6 +112,10 @@ const IndexHome = () => {
           console.log(error)
         }
       }
+      getLocalJwt()
+      console.log(user)
+    }
+    const getLocalJwt = async () =>{
       if(localStorage.getItem('jwt')){
 
         const jwt = localStorage.getItem('jwt')
@@ -140,14 +142,38 @@ const IndexHome = () => {
       }else{
         // setIsLogin(false)
       }
-
-
-      console.log(user)
     }
 
     const handleLogout = async () =>{
       localStorage.clear()
       setIsLogin(false)
+    }
+
+    const handleLevelEntry = async () =>{
+      if(localStorage.getItem('jwt')){
+
+        const jwt = localStorage.getItem('jwt')
+        // set new data
+        setJwt(jwt)
+        try {
+          const {data} = await axios.get(`${backEndProURL}/users/me`,{
+            headers: {
+              'Authorization': `Bearer ${jwt}`
+            }
+          })
+         if(data.role.name === "level 2" || data.role.name === "level 3"){
+            console.log(data.role.name)
+            window.location.href='https://affectionate-nobel-e84ec5.netlify.app'
+         }else{
+           setMessage('raise your level')
+         }
+        } catch (error) {
+          setMessage('raise your level')
+        }
+                    
+      }else{
+        setMessage('raise your level')
+      }
 
     }
 
@@ -214,7 +240,68 @@ const IndexHome = () => {
 
                 </Toolbar>
               </AppBar>
-              <Link to='/about'>Game1: Tetris</Link>
+              <Grid container justify="center">
+                    <Grid item >              {
+               message && <Typography style={{fontSize:'25px', marginTop:'10px'}} color="secondary">{message}</Typography>
+              }</Grid>
+              </Grid>
+              <Grid container spacing={3} justify="center">
+                <Grid item xs={11} sm={7} md={5} lg={3} style={{marginTop:'10px'}}>
+                <Link to='/about' style={{textDecoration:'none'}}>
+                  <Card variant="outlined" >
+                   <CardContent >
+                    <Typography color="textSecondary" gutterBottom>
+                      Game Zone
+                    </Typography>
+                    <Typography variant="h5" component="h2">
+                      Tetris
+                    </Typography>
+                    <Typography color="textSecondary">
+                      game 1
+                    </Typography>
+                    <Typography variant="body2" component="p">
+                      well it is a good game have fun
+                      <br />
+                      hope you get high score
+                    </Typography>
+                   </CardContent>
+                   <CardActions>
+                    <Button size="small">Author: jinzhu</Button>
+                  </CardActions>
+                 </Card>
+                 </Link>
+
+                </Grid>
+              
+                <Grid item xs={11} sm={7} md={5} lg={3} 
+                    style={{marginTop:'10px', cursor:'pointer'}}
+                    onClick={handleLevelEntry}>
+
+                  <Card variant="outlined" >
+                   <CardContent >
+                    <Typography color="textSecondary" gutterBottom>
+                      Game Zone
+                    </Typography>
+                    <Typography variant="h5" component="h2">
+                      Memory
+                    </Typography>
+                    <Typography color="textSecondary">
+                      game 2
+                    </Typography>
+                    <Typography variant="body2" component="p">
+                      Share your memory to others
+                      <br />
+                      it is interesting it need level 2 or 3
+                    </Typography>
+                   </CardContent>
+                   <CardActions>
+                    <Button size="small">Author: jinzhu</Button>
+                  </CardActions>
+                 </Card>
+
+                </Grid>
+              
+              </Grid>
             </div>
         
     )

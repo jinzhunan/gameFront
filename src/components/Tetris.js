@@ -85,8 +85,10 @@ const Tetris = () => {
   const dropPlayer = () => {
     // We don't need to run the interval when we use the arrow down to
     // move the tetromino downwards. So deactivate it for now.
-    setDropTime(null);
-    drop();
+
+    // setDropTime(null);
+      drop();
+
   };
 
   // This one starts the game
@@ -121,10 +123,10 @@ const Tetris = () => {
           <Stage stage={stage} />
 
             <ButtonGroup fullWidth>
-              <Button color="secondary" variant="contained" style={{margin: '5px'}} onClick={()=> movePlayer(-1)}>left</Button>
-              <Button color="secondary" variant="contained" style={{margin: '5px'}} onClick={()=> playerRotate(stage, 1)}>rotate</Button>
-              <Button color="secondary" variant="contained" style={{margin: '5px'}}>down</Button>
-              <Button color="secondary" variant="contained" style={{margin: '5px'}} onClick={()=> movePlayer(1)}>right</Button>
+              <Button color="secondary" variant="contained" style={{margin: '5px'}} onClick={()=> !gameOver && movePlayer(-1)}>left</Button>
+              <Button color="secondary" variant="contained" style={{margin: '5px'}} onClick={()=> !gameOver && playerRotate(stage, 1)}>rotate</Button>
+              <Button color="secondary" variant="contained" style={{margin: '5px'}} onClick={()=> !gameOver && dropPlayer()} >down</Button>
+              <Button color="secondary" variant="contained" style={{margin: '5px'}} onClick={()=> !gameOver && movePlayer(1)}>right</Button>
             </ButtonGroup>
           </div>
 
