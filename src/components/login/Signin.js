@@ -1,35 +1,28 @@
-import React,{useState} from 'react'
-import axios from 'axios'
+import React,{useState,useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import { Grid, TextField, Button, Typography,ButtonGroup } from '@material-ui/core';
-import {backEndProURL, frontEndProURL} from '../api/ApiData'
+import {backEndProURL} from '../../api/ApiData'
+import {useDispatch, useSelector} from 'react-redux'
 
+import {handleLocalLogIn} from '../../actions/users'
 
 
 const Signin = () => {
 
+    const dispatch = useDispatch();
+    const messages = useSelector((state) => state.messages)
+
     const [logInUser, setLogInUser ] =useState({userEmail: '', password: ''})
     const [error, setError] = useState(null)
 
-    const handleLocalLogIn = async (e) =>{
-        e.preventDefault()
-        try {
-            const {data} = await axios.post(`${backEndProURL}/auth/local`, {
-            identifier: logInUser.userEmail,
-            password: logInUser.password
-            });
+    useEffect(() => {
+        
+        setError(messages.error)
+    }, [messages])
 
-            // set localstorage
-            data && localStorage.setItem('jwt', data.jwt)
-            data && localStorage.setItem('userName', data.user.username)
-            data && localStorage.setItem('userRole', data.user.role.name)
-            data && localStorage.setItem('userId', data.user.id)
-            
-            window.location.href = frontEndProURL
-        } catch (error) {
-            setError('wrong password or email')
-        }
-      }
+    const handleLocalLogIn1 = () =>{
+        dispatch(handleLocalLogIn(logInUser.userEmail, logInUser.password))
+    }
 
     return (
         <Grid container direction="column" justify="center" alignItems="center">
@@ -40,7 +33,7 @@ const Signin = () => {
                 error && <Typography color="secondary">{error}</Typography>
             }
             <ButtonGroup>
-                <Button onClick={handleLocalLogIn} color="primary" variant="outlined">SignIn</Button>
+                <Button onClick={handleLocalLogIn1} color="primary" variant="outlined">SignIn</Button>
                 <Button color="primary" variant="outlined">
                     <Link to="/signup" style={{textDecoration: 'none'}}>SignUp</Link>
                 </Button>

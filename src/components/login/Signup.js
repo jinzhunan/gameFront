@@ -1,39 +1,30 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 import { Grid, TextField, Button, Typography,ButtonGroup } from '@material-ui/core';
-import {backEndProURL, frontEndProURL} from '../api/ApiData'
+import {backEndProURL} from '../../api/ApiData'
+import {useDispatch, useSelector} from 'react-redux'
 
+import {handleSignUp} from '../../actions/users'
 
 
 const Signup = () => {
 
+    const dispatch = useDispatch();
+    const messages = useSelector((state) => state.messages)
+
     const [signUp, setSignUp ] =useState({userName: '', userEmail: '', password: ''})
     const [error, setError] = useState(null)
 
-    const handleSignUp = async (e) =>{
-        e.preventDefault()
-        try {
-            const {data} = await axios.post(`${backEndProURL}/auth/local/register`, {
-                username: signUp.userName,
-                email: signUp.userEmail,
-                password: signUp.password
-            });
+    useEffect(() => {
+        
+        setError(messages.error)
+    }, [messages])
 
-            // set localstorage
-            data && localStorage.setItem('jwt', data.jwt)
-            data && localStorage.setItem('userName', data.user.username)
-            data && localStorage.setItem('userRole', data.user.role.name)
-            data && localStorage.setItem('userId', data.user.id)
-            
-            window.location.href = frontEndProURL
-        } catch (error) {
-            console.log(error.response.data.message)
-            // setError(error.response.data.message)
-            setError(error.response.data.message[0].messages[0].message)
-        }
+    const handleSignUp1 = () =>{
+        dispatch(handleSignUp(signUp.userName, signUp.userEmail, signUp.password))
+    }
 
-      }
 
     return (
         <Grid container direction="column" justify="center" alignItems="center">
@@ -45,7 +36,7 @@ const Signup = () => {
                 error && <Typography color="secondary">{error}</Typography>
             }
             <ButtonGroup>
-                <Button color="primary" variant="outlined" onClick={handleSignUp}>SignUp</Button>
+                <Button color="primary" variant="outlined" onClick={handleSignUp1}>SignUp</Button>
                 <Button color="primary" variant="outlined">
                     <Link style={{textDecoration:"none"}} to="/">Back</Link>
                 </Button>

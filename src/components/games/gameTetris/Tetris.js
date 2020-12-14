@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
+import {useSelector, useDispatch} from 'react-redux'
 
-import { createStage, checkCollision } from '../gameHelpers';
+
+import { createStage, checkCollision } from './gameHelpers';
 import { StyledTetrisWrapper, StyledTetris } from './styles/StyledTetris';
 
 // Custom Hooks
-import { useInterval } from '../hooks/useInterval';
-import { usePlayer } from '../hooks/usePlayer';
-import { useStage } from '../hooks/useStage';
-import { useGameStatus } from '../hooks/useGameStatus';
+import { useInterval } from './hooks/useInterval';
+import { usePlayer } from './hooks/usePlayer';
+import { useStage } from './hooks/useStage';
+import { useGameStatus } from './hooks/useGameStatus';
 
 // Components
 import Stage from './Stage';
@@ -15,7 +17,8 @@ import Display from './Display';
 import StartButton from './StartButton';
 
 // api
-import {getUserData, setTetrisScore, getTetrisScores} from '../api/ApiData'
+import { setTetrisScore, getTetrisScores} from '../../../api/ApiData'
+import { setUsers} from '../../../actions/users'
 import {Button, ButtonGroup } from '@material-ui/core'
 
 const Tetris = () => {
@@ -28,6 +31,18 @@ const Tetris = () => {
   const [score, setScore, rows, setRows, level, setLevel] = useGameStatus(
     rowsCleared
   );
+
+  const users = useSelector((state) => state.users)
+  const dispatch = useDispatch()
+
+  useEffect( () => {
+    const userInfo = async() =>{ 
+      setTopScores(await getTetrisScores())
+      if(users.jwt){
+        dispatch(setUsers(users.jwt));
+      }}
+      userInfo()
+  }, [])
 
   // console.log('re-render');
 
@@ -73,7 +88,7 @@ const Tetris = () => {
       // Game over!
       if (player.pos.y < 1) {
         console.log('GAME OVER!!!');
-        setTetrisScore(score)
+        setTetrisScore(users.userName, score)
 
         setGameOver(true);
         setDropTime(null);
@@ -144,7 +159,7 @@ const Tetris = () => {
               }
 
               </ol>}/>
-              <Display text={`${getUserData().name}`} />
+              <Display text={`${users.userName}`} />
               <Display text={`Score: ${score}`} />
               <Display text={`rows: ${rows}`} />
               <Display text={`Level: ${level}`} />
