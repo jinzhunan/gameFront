@@ -57,7 +57,9 @@ const Posts = (props) => {
     useEffect(()=>{
         console.log('typeOfFiles')
         console.log(typeOfFiles)
-        setTypeOfFiles(typeOfFiles)
+        setTimeout(()=>{
+            setTypeOfFiles(typeOfFiles)
+        },1000)
     },[typeOfFiles,setTypeOfFiles])
 
     useEffect(()=>{
