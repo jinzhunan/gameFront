@@ -306,11 +306,13 @@ const Posts = (props) => {
                                         > edit</Typography>
 
                                     <div>
-                                        <p>creator: {item.creator}</p>
-                                        <p>content: {item.content}</p>
+                                        creator: {item.creator}
                                     </div>
+   
                         </CardContent>
-        
+                        <div>
+                                        content: {item.content}
+                                    </div>
         
                     </Card>
                     </Grid>
