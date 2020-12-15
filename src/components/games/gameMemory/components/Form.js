@@ -118,7 +118,7 @@ const Form = (props) => {
 
     <Typography  variant="h6">{ postData.new ? 'CREATE' : 'UPDATE'}</Typography>
         {
-            percentage && <>
+            percentage.percent && <>
                     <LinearProgress variant="determinate" value={percentage.percent} />
                     <Typography variant="body2" color="textSecondary">{`${percentage.percent}%`}</Typography>
             </>
