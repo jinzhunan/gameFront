@@ -245,6 +245,7 @@ const Posts = (props) => {
                                             setCheckedAudio(false)
                                             setCheckedVid(false)
                                             setCheckedImg(true)
+                                            window.scrollTo(0,0)
                                         }}
                                         style={{
                                             color: red[500],
@@ -262,6 +263,7 @@ const Posts = (props) => {
                                             console.log('oldpost')
                                             console.log(oldpost.data)
                                             props.setEditPost(oldpost.data)
+                                            window.scrollTo(0,10000)
                                         }}
                                         style={{
                                             color: lightBlues[500],
