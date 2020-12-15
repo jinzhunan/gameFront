@@ -1,5 +1,5 @@
-import React, { useState,useEffect } from 'react';
-import {useSelector, useDispatch} from 'react-redux'
+import React, { useState,useEffect, useRef } from 'react';
+import {useSelector, useDispatch } from 'react-redux'
 
 
 import { createStage, checkCollision } from './gameHelpers';
@@ -32,6 +32,8 @@ const Tetris = () => {
     rowsCleared
   );
 
+  const controlRef = useRef()
+
   const users = useSelector((state) => state.users)
   const dispatch = useDispatch()
 
@@ -42,7 +44,13 @@ const Tetris = () => {
         dispatch(setUsers(users.jwt));
       }}
       userInfo()
+      console.log(window.innerWidth)
+      if(window.innerWidth < 700){
+        window.scrollTo(0,10000)
+      }
   }, [])
+
+
 
   // console.log('re-render');
 
@@ -72,6 +80,11 @@ const Tetris = () => {
     setGameOver(false);
 
     setTopScores(await getTetrisScores())
+    if(window.innerWidth < 700){
+      const move = controlRef.current.offsetHeight + controlRef.current.offsetTop - window.innerHeight
+
+      window.scrollTo(0,move)
+    }
   };
 
   const drop = () => {
@@ -137,7 +150,7 @@ const Tetris = () => {
           <div>
           <Stage stage={stage} />
 
-            <ButtonGroup fullWidth>
+            <ButtonGroup ref={controlRef} fullWidth>
               <Button color="secondary" variant="contained" style={{margin: '5px'}} onClick={()=> !gameOver && movePlayer(-1)}>left</Button>
               <Button color="secondary" variant="contained" style={{margin: '5px'}} onClick={()=> !gameOver && playerRotate(stage, 1)}>rotate</Button>
               <Button color="secondary" variant="contained" style={{margin: '5px'}} onClick={()=> !gameOver && dropPlayer()} >down</Button>

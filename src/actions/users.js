@@ -12,7 +12,6 @@ export const setUsers = (jwt) => async (dispatch) => {
           'Authorization': `Bearer ${jwt}`
         }
       })
-      // console.log(data)
     dispatch({ type: SET_USERS, payload: data });
   } catch (error) {
     console.log(error);
@@ -25,7 +24,7 @@ export const getGoogleJwt = (googleIdToken) => async (dispatch) =>{
         var userData =  await axios.get(`${backEndProURL}/auth/google/callback?id_token=${googleIdToken}`)
         // set localstorage
         localStorage.setItem('jwt', userData.data.jwt)
-        // console.log(userData.data)
+
         dispatch({ type: SET_USERS, payload: userData.data.user });
       } catch (error) {
         console.log(error)

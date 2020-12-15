@@ -15,10 +15,10 @@ export const StyledTetris = styled.div`
   display: flex;
   align-items: flex-start;
   padding: 40px;
-  margin: 0 auto;
-  max-width: 900px;
+  margin: -20px auto;
+  max-width: 700px;
   
-  @media only screen and (max-width: 900px) {
+  @media only screen and (max-width:700px) {
     display: block;
   }
 
