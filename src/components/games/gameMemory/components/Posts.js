@@ -55,8 +55,10 @@ const Posts = (props) => {
     },[])
 
     useEffect(()=>{
+        console.log('typeOfFiles')
+        console.log(typeOfFiles)
         setTypeOfFiles(typeOfFiles)
-    },[typeOfFiles])
+    },[typeOfFiles,setTypeOfFiles])
 
     useEffect(()=>{
         if(deleteLoading===false){
