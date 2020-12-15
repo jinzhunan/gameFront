@@ -157,7 +157,7 @@ const Posts = (props) => {
         </FormGroup>
         
         {
-            props.loading ? <CircularProgress /> : (
+            props.loading || loading ? <CircularProgress /> : (
             <Grid container spacing={2}>
                 {
                     myfiles1 ? myfiles1.map((item)=>
