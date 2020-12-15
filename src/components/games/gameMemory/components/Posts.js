@@ -28,22 +28,53 @@ const Posts = (props) => {
     const [myfiles, setMyfiles] = useState(null)
     const [myfiles1, setMyfiles1] = useState(null)
 
-    const [checkedImg, setCheckedImg] = useState(true);
-    const [checkedVid, setCheckedVid] = useState(false);
-    const [checkedAudio, setCheckedAudio] = useState(false);
+    const [checkedImg, setCheckedImg] = useState(props.loading.type === 'image');
+    const [checkedVid, setCheckedVid] = useState(props.loading.type === 'video');
+    const [checkedAudio, setCheckedAudio] = useState(props.loading.type === 'audio');
 
-    const [loading, setLoging] = useState(false)
+    const [deleteLoading, setDeleteLoading] = useState(false)
+    const [editLoading, setEditLoading] = useState(false)
+
+    // useEffect(()=>{
+
+
+    // },[props.loading])
 
     useEffect(()=>{
         getData()
+        if(props.loading.loading===true){
 
+        }else{
+            getData()
+            console.log(props.loading.type)
+            props.loading.type === 'image' && setCheckedImg(true)
+            props.loading.type === 'audio' && setCheckedAudio(true)
+            props.loading.type === 'video' && setCheckedVid(true)
+
+        }
     },[])
-    useEffect(()=>{
-        getData()
-
-    },[loading])
 
     useEffect(()=>{
+        if(deleteLoading===false){
+            getData()
+        }
+        if(editLoading===false){
+            getData()
+        }
+    },[deleteLoading,editLoading])
+
+
+    useEffect(()=>{
+        if(props.loading.loading === true){
+            setEditLoading(true)
+        }else{
+            setEditLoading(false)
+        }
+    },[props.loading.loading])
+
+
+    useEffect(()=>{
+
         if(checkedImg && myfiles){
             const fetchData = async ()=>{
 
@@ -51,6 +82,7 @@ const Posts = (props) => {
                     .filter((item2)=> item2 !== undefined)
                 setMyfiles1(dataImg)
 
+                props.setLoading({loading: false, type: 'image'})
             }
             fetchData()
         }
@@ -60,6 +92,8 @@ const Posts = (props) => {
                 const dataVid = myfiles.map((item)=> item.cover.mime.includes('video') ? item : undefined)
                     .filter((item2)=> item2 !== undefined)
                 setMyfiles1(dataVid)
+
+                props.setLoading({loading: false, type: 'video'})
                 console.log(dataVid)
             }
             fetchData()
@@ -70,27 +104,15 @@ const Posts = (props) => {
                 const dataAud = myfiles.map((item)=> item.cover.mime.includes('audio') ? item : undefined)
                     .filter((item2)=> item2 !== undefined)
                 setMyfiles1(dataAud)
+
+                props.setLoading({loading: false, type: 'audio'})
+
             }
             fetchData()
         }
-
     },[checkedImg,checkedVid,checkedAudio,myfiles,setMyfiles])
     
-    useEffect(()=>{
 
-        if(props.loading.loading===true){
-            setCheckedImg(false)
-            setCheckedVid(false)
-            setCheckedAudio(false)
-        }else{
-            getData()
-            console.log(props.loading.type)
-            props.loading.type === 'image' && setCheckedImg(true)
-            props.loading.type === 'audio' && setCheckedAudio(true)
-            props.loading.type === 'video' && setCheckedVid(true)
-
-        }
-    },[props.loading])
 
     const getData = async () =>{
         const {data} = await axios.get(`${backEndProURL}/memory-games`,{
@@ -98,6 +120,7 @@ const Posts = (props) => {
                 'Authorization': `Bearer ${localStorage.getItem('jwt')}`
             }
         })
+        console.log('getting data')
         setMyfiles(data)
     }
 
@@ -159,11 +182,14 @@ const Posts = (props) => {
             </Grid>
         </FormGroup>
         {
-            loading && <CircularProgress />
+            deleteLoading && <CircularProgress />
+        }
+        {
+            editLoading && <CircularProgress />
         }
         
         {
-            props.loading.loading ? <CircularProgress /> : (
+            props.loading.loading ? null : (
             <Grid container spacing={2}>
                 {
                     myfiles1 ? myfiles1.map((item)=>
@@ -222,7 +248,8 @@ const Posts = (props) => {
                             
                                         
                                             try {
-                                                setLoging(true)
+                                                window.scrollTo(0,0)
+                                                setDeleteLoading(true)
                                                 await axios.delete(`${backEndProURL}/memory-games/${item.id}`,{
                                                     headers:{
                                                         'Authorization': `Bearer ${localStorage.getItem('jwt')}`
@@ -240,16 +267,13 @@ const Posts = (props) => {
                                                         }
                                                     })
                                                 }
-                                                
-                                                setLoging(false)
+                                                props.setLoading({loading:false, type: props.loading.type})
+                                                setDeleteLoading(false)
                                             } catch (error) {
-                                                setLoging(false)
+                                                setDeleteLoading(false)
                                             }
                                             
-                                            setCheckedAudio(false)
-                                            setCheckedVid(false)
-                                            setCheckedImg(true)
-                                            window.scrollTo(0,0)
+
                                         }}
                                         style={{
                                             color: red[500],

@@ -12,7 +12,7 @@ import {backEndProURL} from '../../../../api/ApiData'
 const Form = (props) => {
 
   const [postData, setPostData] = useState({new: true ,id: '', type: '', title: '',creator: '',content: '', userfile: [], loading: false});
-  const [formLoading, setFormLoading ] = useState({loading:false, type:''})
+  const [formLoading, setFormLoading ] = useState({loading:false, type:'image'})
   const [percentage, setPercentage ] = useState({loaded:'',total:'', percent:''})
 
   const {getRootProps, getInputProps} =  useDropzone({
