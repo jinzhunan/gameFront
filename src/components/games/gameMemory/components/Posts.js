@@ -78,8 +78,6 @@ const Posts = (props) => {
                 const dataImg = myfiles1.map((item)=> item.cover.mime.includes('image') ? item : undefined)
                     .filter((item2)=> item2 !== undefined)
                 setTypeOfFiles(dataImg)
-                setTypeOfFiles(null)
-                setTypeOfFiles(dataImg)
   
                 props.setLoading({loading: false, type: 'image'})
             }
@@ -306,12 +304,11 @@ const Posts = (props) => {
                                             float: 'right'
                                         }}
                                         > edit</Typography>
-
-                                    <div>
-                                        creator: <Typography type="span">{item.creator}</Typography>
+                                        <span>creator: <Typography type="span">{item.creator}</Typography></span>
+                                       
                                         <br/>
-                                        content: <Typography type="span">{item.content}</Typography>
-                                    </div>
+                                        <span>content: <Typography type="span">{item.content}</Typography></span>
+                                        
                         </CardContent>
         
                     </Card>
