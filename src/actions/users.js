@@ -25,7 +25,7 @@ export const getGoogleJwt = (googleIdToken) => async (dispatch) =>{
         // set localstorage
         localStorage.setItem('jwt', userData.data.jwt)
 
-        // dispatch(setUsers(userData.data.jwt))
+        dispatch({ type: SET_USERS, payload: userData.data });
       } catch (error) {
         console.log(error)
       }
