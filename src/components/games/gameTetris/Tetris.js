@@ -46,7 +46,8 @@ const Tetris = () => {
       userInfo()
       console.log(window.innerWidth)
       if(window.innerWidth < 700){
-        window.scrollTo(0,10000)
+        console.log(window.innerHeight)
+        window.scrollTo(0,window.innerHeight + 100)
       }
   }, [])
 
