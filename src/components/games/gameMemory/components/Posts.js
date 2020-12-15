@@ -313,6 +313,7 @@ const Posts = (props) => {
                                             }else{
                                                 window.scrollTo(0,10000)
                                             }
+                                            window.location.href='https://jinzhu-game.netlify.app/memory'
                                         }}
                                         style={{
                                             color: lightBlues[500],
