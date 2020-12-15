@@ -32,20 +32,20 @@ const Form = (props) => {
 
   const setType = () =>{
     if(postData.type.includes('audio')){
-        props.setLoading({loading: true, type: 'audio'})
-    }else if(postData.type.includes('video')){
-        props.setLoading({loading: true, type: 'video'})
-    }else if(postData.type.includes('image')){
         props.setLoading({loading: true, type: 'image'})
+    }else if(postData.type.includes('video')){
+        props.setLoading({loading: true, type: 'audio'})
+    }else if(postData.type.includes('image')){
+        props.setLoading({loading: true, type: 'video'})
     }
   }
   const ClearType = () =>{
     if(postData.type.includes('audio')){
-        props.setLoading({loading: false, type: 'audio'})
-    }else if(postData.type.includes('video')){
-        props.setLoading({loading: false, type: 'video'})
-    }else if(postData.type.includes('image')){
         props.setLoading({loading: false, type: 'image'})
+    }else if(postData.type.includes('video')){
+        props.setLoading({loading: false, type: 'audio'})
+    }else if(postData.type.includes('image')){
+        props.setLoading({loading: false, type: 'video'})
     }
   }
 
