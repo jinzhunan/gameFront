@@ -31,10 +31,16 @@ const Posts = (props) => {
     const [checkedVid, setCheckedVid] = useState(false);
     const [checkedAudio, setCheckedAudio] = useState(false);
 
+    const [loading, setLoging] = useState(false)
+
     useEffect(()=>{
         getData()
 
     },[])
+    useEffect(()=>{
+        getData()
+
+    },[loading])
 
     useEffect(()=>{
         if(checkedImg && myfiles){
@@ -209,24 +215,30 @@ const Posts = (props) => {
                         <><Typography component='span' onClick={async ()=>{ 
                             
                                         
-                                            await axios.delete(`${backEndProURL}/memory-games/${item.id}`,{
-                                                headers:{
-                                                    'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-                                                }
-                                            }) 
-                                            await axios.delete(`${backEndProURL}/upload/files/${item.cover.id}`,{
-                                                headers:{
-                                                    'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-                                                }
-                                            }) 
-                                            if(item.cover2){
-                                                await axios.delete(`${backEndProURL}/upload/files/${item.cover2.id}`,{
+                                            try {
+                                                setLoging(true)
+                                                await axios.delete(`${backEndProURL}/memory-games/${item.id}`,{
                                                     headers:{
                                                         'Authorization': `Bearer ${localStorage.getItem('jwt')}`
                                                     }
-                                                })
+                                                }) 
+                                                await axios.delete(`${backEndProURL}/upload/files/${item.cover.id}`,{
+                                                    headers:{
+                                                        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                                                    }
+                                                }) 
+                                                if(item.cover2){
+                                                    await axios.delete(`${backEndProURL}/upload/files/${item.cover2.id}`,{
+                                                        headers:{
+                                                            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                                                        }
+                                                    })
+                                                }
+                                                setLoging(false)
+                                            } catch (error) {
+                                                setLoging(false)
                                             }
-                                            getData()
+                                            
                                             setCheckedAudio(false)
                                             setCheckedVid(false)
                                             setCheckedImg(true)
