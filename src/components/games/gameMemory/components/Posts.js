@@ -258,7 +258,7 @@ const Posts = (props) => {
                                 />
                         }
                         <CardContent>
-                        <><Typography component='span' onClick={async ()=>{ 
+                        <Typography component='span' onClick={async ()=>{ 
                             
                                         
                                             try {
@@ -319,9 +319,11 @@ const Posts = (props) => {
                                             cursor: 'pointer',
                                             float: 'right'
                                         }}
-                                        > edit</Typography></>
+                                        > edit</Typography>
 
-                                    <div>{item.creator}</div>
+                                    <Typography variant="body2" color="textPrimary">
+                                        creator: {item.creator}
+                                    </Typography>
                         </CardContent>
         
         
