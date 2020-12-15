@@ -208,7 +208,92 @@ const Posts = (props) => {
                     typeOfFiles ? typeOfFiles.map((item)=>{
                         console.log(typeOfFiles)
                         return (
-                                        <>
+                            <Grid key={item.id} item xs={12} sm={12} md={6} >
+                            
+                        
+                        <Card >
+                        <CardHeader
+                            avatar={
+                            <Avatar aria-label="recipe">
+                                {item.creator}
+                                {/* {item.creator.slice(0,1)} */}
+                            </Avatar>
+                            }
+                            action={
+                                
+                                <IconButton >
+                                    <FavoriteIcon />
+                                </IconButton>
+                                
+                            }
+                            title={item.title}
+                            // title={item.title.slice(0,10)}
+                            subheader={
+                                <Typography color="textSecondary" variant="body2">{moment(item.createdAt).fromNow()}</Typography>
+                            }
+                        />
+                        {
+  
+                                // <img src={item.cover.previewUrl}/>
+                                !item.cover2 ? 
+                                <CardMedia
+                                image={item.cover.previewUrl ? item.cover.previewUrl : item.cover.url}
+                                style={{
+                                        height: 0,
+                                        paddingTop: '56.25%', // 16:9
+                                }}
+                                onClick={()=>{
+                                    window.open(`${item.cover.url}`, '_blank')
+                                }}
+                                /> :
+                                <CardMedia
+                                image={item.cover2.url}
+                                style={{
+                                        height: 0,
+                                        paddingTop: '56.25%', // 16:9
+                                }}
+                                onClick={()=>{
+                                    window.open(`${item.cover.url}`, '_blank')
+                                }}
+                                />
+                        }
+                        <CardContent>
+                        <><Typography component='span' onClick={async ()=>{ 
+                            
+                                        
+                                            try {
+                                                window.scrollTo(0,0)
+                                                setDeleteLoading(true)
+                                                await axios.delete(`${backEndProURL}/memory-games/${item.id}`,{
+                                                    headers:{
+                                                        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                                                    }
+                                                }) 
+                                                await axios.delete(`${backEndProURL}/upload/files/${item.cover.id}`,{
+                                                    headers:{
+                                                        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                                                    }
+                                                }) 
+                                                if(item.cover2){
+                                                    await axios.delete(`${backEndProURL}/upload/files/${item.cover2.id}`,{
+                                                        headers:{
+                                                            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                                                        }
+                                                    })
+                                                }
+                                                props.setLoading({loading:false, type: props.loading.type})
+                                                setDeleteLoading(false)
+                                            } catch (error) {
+                                                setDeleteLoading(false)
+                                            }
+                                            
+
+                                        }}
+                                        style={{
+                                            color: red[500],
+                                            cursor: 'pointer'
+                                        }}
+                                        >delete&nbsp;&nbsp;</Typography>
                                         <Typography 
                                             component="span"
                                             onClick={async()=>{
@@ -217,9 +302,12 @@ const Posts = (props) => {
                                                     'Authorization': `Bearer ${localStorage.getItem('jwt')}`
                                                 }
                                             })
-
+                                            console.log('oldpost')
+                                            console.log(oldpost.data)
+                                            console.log('123')
                                             props.setEditPost(oldpost.data)
 
+                                            console.log(window.innerWidth)
                                             if(window.innerWidth > 600){
                                                 window.scrollTo(0,0)
                                             }else{
@@ -231,11 +319,19 @@ const Posts = (props) => {
                                             cursor: 'pointer',
                                             float: 'right'
                                         }}
-                                        > edit</Typography>
-                                        <div>{item.creator}</div>
-                                        </>
+                                        > edit</Typography></>
 
-    
+                            <Typography 
+                                    
+                                variant="body2"
+                                 color="textSecondary" >
+                                creator: {item.creator}
+                            </Typography> 
+                        </CardContent>
+        
+        
+                    </Card>
+                    </Grid>
                         )
                     }
                     
