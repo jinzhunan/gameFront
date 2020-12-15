@@ -35,10 +35,6 @@ const Posts = (props) => {
     const [deleteLoading, setDeleteLoading] = useState(false)
     const [editLoading, setEditLoading] = useState(false)
 
-    // useEffect(()=>{
-
-
-    // },[props.loading])
 
     useEffect(()=>{
         getData()
@@ -54,13 +50,6 @@ const Posts = (props) => {
         }
     },[])
 
-    useEffect(()=>{
-        console.log('typeOfFiles')
-        console.log(typeOfFiles)
-        setTypeOfFiles(null)
-        setTypeOfFiles(typeOfFiles)
-        
-    },[typeOfFiles,setTypeOfFiles])
 
     useEffect(()=>{
         if(deleteLoading===false){
@@ -76,10 +65,8 @@ const Posts = (props) => {
     useEffect(()=>{
         if(props.loading.loading === true){
             setEditLoading(true)
-            console.log('editing1')
         }else{
             setEditLoading(false)
-            console.log('editing2')
         }
     },[props.loading.loading])
 
@@ -91,9 +78,7 @@ const Posts = (props) => {
                 const dataImg = myfiles1.map((item)=> item.cover.mime.includes('image') ? item : undefined)
                     .filter((item2)=> item2 !== undefined)
                 setTypeOfFiles(dataImg)
-                setTypeOfFiles(null)
-                setTypeOfFiles(dataImg)
-                console.log(dataImg)
+  
                 props.setLoading({loading: false, type: 'image'})
             }
             fetchData()
@@ -132,7 +117,6 @@ const Posts = (props) => {
                 'Authorization': `Bearer ${localStorage.getItem('jwt')}`
             }
         })
-        console.log('getting data')
         setMyfiles1(data)
     }
 
@@ -321,9 +305,10 @@ const Posts = (props) => {
                                         }}
                                         > edit</Typography>
 
-                                    <Typography variant="body2" color="textPrimary">
-                                        creator: {item.creator}
-                                    </Typography>
+                                    <div>
+                                        <p>creator: {item.creator}</p>
+                                        <p>content: {item.content}</p>
+                                    </div>
                         </CardContent>
         
         
