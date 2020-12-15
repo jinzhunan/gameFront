@@ -208,7 +208,32 @@ const Posts = (props) => {
                     typeOfFiles ? typeOfFiles.map((item)=>{
                         console.log(typeOfFiles)
                         return (
-                            <div>{item.creator}</div>
+             
+                                        <Typography 
+                                            component="span"
+                                            onClick={async()=>{
+                                            const oldpost = await axios.get(`${backEndProURL}/memory-games/${item.id}`,{
+                                                headers:{
+                                                    'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                                                }
+                                            })
+
+                                            props.setEditPost(oldpost.data)
+
+                                            if(window.innerWidth > 600){
+                                                window.scrollTo(0,0)
+                                            }else{
+                                                window.scrollTo(0,10000)
+                                            }
+                                        }}
+                                        style={{
+                                            color: lightBlues[500],
+                                            cursor: 'pointer',
+                                            float: 'right'
+                                        }}
+                                        > edit</Typography>
+
+    
                         )
                     }
                     
