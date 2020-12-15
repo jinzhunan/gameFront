@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Typography, Paper, ButtonGroup, Box, Input } from '@material-ui/core';
+import { TextField, Button, Typography, Paper, ButtonGroup, Box, LinearProgress } from '@material-ui/core';
 import {useDropzone} from 'react-dropzone'
 import * as id3 from 'id3js';
 import axios from 'axios'
@@ -117,9 +117,13 @@ const Form = (props) => {
     <form style={{backgroundColor:grey[50], borderRadius: '5px', padding: '10px'}} id="myForm" align="center" name="myForm" encType="multipart/form-data" onSubmit={handleSubmit}>
 
     <Typography  variant="h6">{ postData.new ? 'CREATE' : 'UPDATE'}</Typography>
-    {
-        percentage && <LinearProgress variant="determinate" value={percentage.percent} />
-    }
+        {
+            percentage.percent && <>
+                    <LinearProgress variant="determinate" value={percentage.percent} />
+                    <Typography variant="body2" color="textSecondary">{`${percentage.percent}%`}</Typography>
+            </>
+        }
+
     {postData.new ? null : <TextField 
             fullWidth
             label="Title" 
