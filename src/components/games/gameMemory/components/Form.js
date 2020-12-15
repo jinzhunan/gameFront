@@ -117,7 +117,9 @@ const Form = (props) => {
     <form style={{backgroundColor:grey[50], borderRadius: '5px', padding: '10px'}} id="myForm" align="center" name="myForm" encType="multipart/form-data" onSubmit={handleSubmit}>
 
     <Typography  variant="h6">{ postData.new ? 'CREATE' : 'UPDATE'}</Typography>
-    
+    {
+        percentage && <LinearProgress variant="determinate" value={percentage.percent} />
+    }
     {postData.new ? null : <TextField 
             fullWidth
             label="Title" 
