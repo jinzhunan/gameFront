@@ -94,13 +94,13 @@ const Form = (props) => {
                 })
                 ClearType()
                 setPercentage({loaded:'',total: '',percent: ''})
+                window.location.href='https://jinzhu-game.netlify.app/memory'
 
             } catch (error) {
                 console.log(error.response)
                 ClearType()
                 setPercentage({loaded:'',total: '',percent: ''})
             }
-            window.location.href='https://jinzhu-game.netlify.app/memory'
 
     }else{
             // UPDATE POST
