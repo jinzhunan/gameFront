@@ -25,8 +25,8 @@ import {Card, CardHeader, Avatar, CardMedia, CardContent, Typography} from '@mat
 
 const Posts = (props) => {
 
-    const [myfiles, setMyfiles] = useState(null)
     const [myfiles1, setMyfiles1] = useState(null)
+    const [typeOfFiles, setTypeOfFiles] = useState(null)
 
     const [checkedImg, setCheckedImg] = useState(props.loading.type === 'image');
     const [checkedVid, setCheckedVid] = useState(props.loading.type === 'video');
@@ -77,43 +77,42 @@ const Posts = (props) => {
 
 
     useEffect(()=>{
-
-        if(checkedImg && myfiles){
+        if(checkedImg && myfiles1){
             const fetchData = async ()=>{
 
-                const dataImg = myfiles.map((item)=> item.cover.mime.includes('image') ? item : undefined)
+                const dataImg = myfiles1.map((item)=> item.cover.mime.includes('image') ? item : undefined)
                     .filter((item2)=> item2 !== undefined)
-                setMyfiles1(dataImg)
-
+                setTypeOfFiles(dataImg)
+                console.log(dataImg)
                 props.setLoading({loading: false, type: 'image'})
             }
             fetchData()
         }
-        if(checkedVid && myfiles){
+        if(checkedVid && myfiles1){
             const fetchData = async ()=>{
 
-                const dataVid = myfiles.map((item)=> item.cover.mime.includes('video') ? item : undefined)
+                const dataVid = myfiles1.map((item)=> item.cover.mime.includes('video') ? item : undefined)
                     .filter((item2)=> item2 !== undefined)
-                setMyfiles1(dataVid)
+                    setTypeOfFiles(dataVid)
 
                 props.setLoading({loading: false, type: 'video'})
                 console.log(dataVid)
             }
             fetchData()
         }
-        if(checkedAudio && myfiles){
+        if(checkedAudio && myfiles1){
             const fetchData = async ()=>{
 
-                const dataAud = myfiles.map((item)=> item.cover.mime.includes('audio') ? item : undefined)
+                const dataAud = myfiles1.map((item)=> item.cover.mime.includes('audio') ? item : undefined)
                     .filter((item2)=> item2 !== undefined)
-                setMyfiles1(dataAud)
+                    setTypeOfFiles(dataAud)
 
                 props.setLoading({loading: false, type: 'audio'})
 
             }
             fetchData()
         }
-    },[checkedImg,checkedVid,checkedAudio,myfiles,setMyfiles])
+    },[checkedImg,checkedVid,checkedAudio,myfiles1,setMyfiles1])
     
 
 
@@ -124,7 +123,7 @@ const Posts = (props) => {
             }
         })
         console.log('getting data')
-        setMyfiles(data)
+        setMyfiles1(data)
     }
 
     return (
@@ -195,7 +194,7 @@ const Posts = (props) => {
             props.loading.loading ? null : (
             <Grid container spacing={2}>
                 {
-                    myfiles1 ? myfiles1.map((item)=>
+                    typeOfFiles ? typeOfFiles.map((item)=>
                     
                     <Grid key={item.id} item xs={12} sm={12} md={6} >
                             
