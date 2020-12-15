@@ -200,8 +200,7 @@ const Posts = (props) => {
                         <CardHeader
                             avatar={
                             <Avatar aria-label="recipe">
-                                {item.creator}
-                                {/* {item.creator.slice(0,1)} */}
+                                {item.creator && item.creator.slice(0,1)}
                             </Avatar>
                             }
                             action={
@@ -211,8 +210,7 @@ const Posts = (props) => {
                                 </IconButton>
                                 
                             }
-                            title={item.title}
-                            // title={item.title.slice(0,10)}
+                            title={item.title && item.title.slice(0,10)}
                             subheader={
                                 <Typography color="textSecondary" variant="body2">{moment(item.createdAt).fromNow()}</Typography>
                             }
