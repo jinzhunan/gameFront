@@ -11,8 +11,8 @@ import {backEndProURL} from '../../../../api/ApiData'
 
 const Form = (props) => {
 
-  const [postData, setPostData] = useState({new: true ,id: '', title: '',creator: '',content: '', userfile: [], loading: false});
-  const [formLoading, setFormLoading ] = useState({loading:false, type:'image'})
+  const [postData, setPostData] = useState({new: true ,id: '', type: '', title: '',creator: '',content: '', userfile: [], loading: false});
+  const [formLoading, setFormLoading ] = useState({loading:false, type:''})
   const [percentage, setPercentage ] = useState({loaded:'',total:'', percent:''})
 
   const {getRootProps, getInputProps} =  useDropzone({
@@ -26,14 +26,34 @@ const Form = (props) => {
 
 
   useEffect(()=>{
+      console.log(formLoading)
     props.setLoading(formLoading)
   },[formLoading])
 
   useEffect(()=>{
       if(props.editPost){
-        setPostData({new: false, title: props.editPost.title, creator: props.editPost.creator, content: props.editPost.content, id: props.editPost.id})
+        setPostData({new: false, type: props.editPost.cover.mime, title: props.editPost.title, creator: props.editPost.creator, content: props.editPost.content, id: props.editPost.id})
       }
   },[props.editPost])
+
+  const setType = () =>{
+    if(postData.type.includes('audio')){
+        setFormLoading({loading: true, type: 'audio'})
+    }else if(postData.type.includes('video')){
+        setFormLoading({loading: true, type: 'video'})
+    }else if(postData.type.includes('image')){
+        setFormLoading({loading: true, type: 'image'})
+    }
+  }
+  const ClearType = () =>{
+    if(postData.type.includes('audio')){
+        setFormLoading({loading: false, type: 'audio'})
+    }else if(postData.type.includes('video')){
+        setFormLoading({loading: false, type: 'video'})
+    }else if(postData.type.includes('image')){
+        setFormLoading({loading: false, type: 'image'})
+    }
+  }
 
 
   const handleSubmit = async (e) => {
@@ -41,6 +61,7 @@ const Form = (props) => {
 
     if(postData.new === true){
         let formData = new FormData();
+        console.log(postData.userfile[0])
         formData.append('creator', postData.creator)
         formData.append('content', postData.content)
         formData.append('title', postData.userfile[0].name)
@@ -62,13 +83,8 @@ const Form = (props) => {
         }
 
         // NEW POST
-            if(postData.userfile[0].type.includes('audio')){
-                setFormLoading({loading: true, type: 'audio'})
-            }else if(postData.userfile[0].type.includes('video')){
-                setFormLoading({loading: true, type: 'video'})
-            }else if(postData.userfile[0].type.includes('image')){
-                setFormLoading({loading: true, type: 'image'})
-            }
+            setType()
+
             try {
                 await axios.post(`${backEndProURL}/memory-games`,formData,{
                     headers:{
@@ -82,12 +98,12 @@ const Form = (props) => {
                         setPercentage({loaded: loaded,total: total,percent: percent})
                     }
                 })
-                setFormLoading({...formLoading, loading: false})
+                ClearType()
                 setPercentage({loaded:'',total: '',percent: ''})
 
             } catch (error) {
                 console.log(error.response)
-                setFormLoading({...formLoading, loading: false})
+                ClearType()
                 setPercentage({loaded:'',total: '',percent: ''})
             }
 
@@ -97,14 +113,9 @@ const Form = (props) => {
             formData.append('title', postData.title)
             formData.append('creator', postData.creator)
             formData.append('content', postData.content)
-
-            if(postData.userfile[0].type.includes('audio')){
-                setFormLoading({loading: true, type: 'audio'})
-            }else if(postData.userfile[0].type.includes('video')){
-                setFormLoading({loading: true, type: 'video'})
-            }else if(postData.userfile[0].type.includes('image')){
-                setFormLoading({loading: true, type: 'image'})
-            }
+            console.log(postData.type)
+            
+            setType()
 
             try {
                 await axios.put(`${backEndProURL}/memory-games/${postData.id}`,formData,{
@@ -119,16 +130,16 @@ const Form = (props) => {
                         setPercentage({loaded: loaded,total: total,percent: percent})
                     }
                 })
-                setFormLoading({...formLoading, loading: false})
+                ClearType()
                 setPercentage({loaded:'',total: '',percent: ''})
 
             } catch (error) {
                 console.log(error)
-                setFormLoading({...formLoading, loading: false})
+                ClearType()
                 setPercentage({loaded:'',total: '',percent: ''})
 
             }
-            setPostData({ new:true, title:'', creator: '', content: '', id:'' })
+            setPostData({ new:true, title:'', creator: '', content: '', id:'', type: '' })
     }
 
 
@@ -226,8 +237,8 @@ const Form = (props) => {
                 <Button type="submit" variant="contained" type="submit">Submit</Button> : 
                     <ButtonGroup fullWidth variant="contained" >
                         <Button type="submit" style={{fontSize:'11px' , backgroundColor: lightBlue[300]}}>Submit</Button>
-                        <Button onClick={()=>{setPostData({...postData, title:'', creator: '', content: ''})}} style={{fontSize:'11px', backgroundColor: red[300]}}>Clear</Button>
-                        <Button onClick={()=>{setPostData({ new:true, title:'', creator: '', content: '', id:'' })}} style={{fontSize:'11px', backgroundColor: grey[300]}}>New</Button>
+                        <Button onClick={()=>{setPostData({...postData, title:'', creator: '', content: '', type: ''})}} style={{fontSize:'11px', backgroundColor: red[300]}}>Clear</Button>
+                        <Button onClick={()=>{setPostData({ new:true, title:'', creator: '', content: '', id:'', type: '' })}} style={{fontSize:'11px', backgroundColor: grey[300]}}>New</Button>
                     </ButtonGroup>
                 }
     

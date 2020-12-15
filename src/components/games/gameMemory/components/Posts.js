@@ -1,3 +1,4 @@
+
 import React,{useState, useEffect} from 'react'
 import axios from 'axios'
 
@@ -83,6 +84,7 @@ const Posts = (props) => {
             setCheckedAudio(false)
         }else{
             getData()
+            console.log(props.loading.type)
             props.loading.type === 'image' && setCheckedImg(true)
             props.loading.type === 'audio' && setCheckedAudio(true)
             props.loading.type === 'video' && setCheckedVid(true)
@@ -265,6 +267,8 @@ const Posts = (props) => {
                                             console.log('oldpost')
                                             console.log(oldpost.data)
                                             console.log('123')
+                                            props.setEditPost(oldpost.data)
+
                                             console.log(window.innerWidth)
                                             if(window.innerWidth > 600){
                                                 window.scrollTo(0,0)
