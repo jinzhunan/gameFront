@@ -304,10 +304,10 @@ const Posts = (props) => {
                                             float: 'right'
                                         }}
                                         > edit</Typography>
-                                        <span>creator: <Typography component="span">{item.creator}</Typography></span>
-                                       
                                         <br/>
-                                        <span>content: <Typography component="span">{item.content}</Typography></span>
+                                        <Typography color="textSecondary"  variant="body2" component="span">creator: <Typography  color="textSecondary"  variant="body2" component="span">{item.creator}</Typography></Typography>
+                                        <br/>
+                                        <Typography  color="textSecondary"  variant="body2" component="span">content: <Typography  color="textSecondary"  variant="body2" component="span">{item.content}</Typography></Typography>
                                         
                         </CardContent>
         
