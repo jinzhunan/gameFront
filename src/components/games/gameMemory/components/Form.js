@@ -13,6 +13,7 @@ const Form = (props) => {
 
   const [postData, setPostData] = useState({new: true ,id: '', title: '',creator: '',content: '', userfile: [], loading: false});
   const [formLoading, setFormLoading ] = useState(false)
+  const [percentage, setPercentage ] = useState({loaded:'',total:'', percent:''})
 
   const {getRootProps, getInputProps} =  useDropzone({
     // accept: `${fileType}/*`,
@@ -67,14 +68,21 @@ const Form = (props) => {
                     headers:{
                         'Content-Type': 'multipart/form-data',
                         'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                    },
+                    onUploadProgress: (progressEvent) =>{
+                        const {loaded, total} = progressEvent;
+                        let percent = Math.floor(loaded * 100 / total)
+                        console.log(`${loaded}kb of ${total}kb | ${percent}%`)
+                        setPercentage({loaded: loaded,total: total,percent: percent})
                     }
                 })
                 setFormLoading(false)
+                setPercentage({loaded:'',total: '',percent: ''})
 
             } catch (error) {
                 console.log(error.response)
                 setFormLoading(false)
-
+                setPercentage({loaded:'',total: '',percent: ''})
             }
 
     }else{
