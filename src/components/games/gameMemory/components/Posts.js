@@ -198,9 +198,7 @@ const Posts = (props) => {
                             
                         
                         <Card >
-                        <div>
-                                        creator: {item.creator}
-                                    </div>
+
                         <CardHeader
                             avatar={
                             <Avatar aria-label="recipe">
@@ -309,10 +307,7 @@ const Posts = (props) => {
                                         }}
                                         > edit</Typography>
 
-                                    <div>
-                                        creator: {item.creator}
-                                    </div>
-   
+                                    <Typography>{item.creator}</Typography>
                         </CardContent>
         
                     </Card>
