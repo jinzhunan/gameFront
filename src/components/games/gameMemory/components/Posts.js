@@ -77,15 +77,16 @@ const Posts = (props) => {
     
     useEffect(()=>{
 
-        if(props.loading===true){
+        if(props.loading.loading===true){
             setCheckedImg(false)
             setCheckedVid(false)
             setCheckedAudio(false)
         }else{
             getData()
-            setCheckedImg(true)
-            setCheckedVid(false)
-            setCheckedAudio(false)
+            props.loading.type === 'image' && setCheckedImg(true)
+            props.loading.type === 'audio' && setCheckedAudio(true)
+            props.loading.type === 'video' && setCheckedVid(true)
+
         }
     },[props.loading])
 
@@ -160,7 +161,7 @@ const Posts = (props) => {
         }
         
         {
-            props.loading ? <CircularProgress /> : (
+            props.loading.loading ? <CircularProgress /> : (
             <Grid container spacing={2}>
                 {
                     myfiles1 ? myfiles1.map((item)=>
@@ -263,8 +264,13 @@ const Posts = (props) => {
                                             })
                                             console.log('oldpost')
                                             console.log(oldpost.data)
-                                            props.setEditPost(oldpost.data)
-                                            window.scrollTo(0,10000)
+                                            console.log('123')
+                                            console.log(window.innerWidth)
+                                            if(window.innerWidth > 600){
+                                                window.scrollTo(0,0)
+                                            }else{
+                                                window.scrollTo(0,10000)
+                                            }
                                         }}
                                         style={{
                                             color: lightBlues[500],

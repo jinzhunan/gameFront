@@ -9,7 +9,7 @@ const Memory = () =>{
     const classes = useStyles();
 
 
-    const [loading, setLoading ] = useState(false)
+    const [loading, setLoading ] = useState({loading:false, type:'image'})
     const [editPost, setEditPost ] = useState(null)
 
 

@@ -12,7 +12,7 @@ import {backEndProURL} from '../../../../api/ApiData'
 const Form = (props) => {
 
   const [postData, setPostData] = useState({new: true ,id: '', title: '',creator: '',content: '', userfile: [], loading: false});
-  const [formLoading, setFormLoading ] = useState(false)
+  const [formLoading, setFormLoading ] = useState({loading:false, type:'image'})
   const [percentage, setPercentage ] = useState({loaded:'',total:'', percent:''})
 
   const {getRootProps, getInputProps} =  useDropzone({
@@ -62,7 +62,13 @@ const Form = (props) => {
         }
 
         // NEW POST
-            setFormLoading(true)
+            if(postData.userfile[0].type.includes('audio')){
+                setFormLoading({loading: true, type: 'audio'})
+            }else if(postData.userfile[0].type.includes('video')){
+                setFormLoading({loading: true, type: 'video'})
+            }else if(postData.userfile[0].type.includes('image')){
+                setFormLoading({loading: true, type: 'image'})
+            }
             try {
                 await axios.post(`${backEndProURL}/memory-games`,formData,{
                     headers:{
@@ -76,12 +82,12 @@ const Form = (props) => {
                         setPercentage({loaded: loaded,total: total,percent: percent})
                     }
                 })
-                setFormLoading(false)
+                setFormLoading({...formLoading, loading: false})
                 setPercentage({loaded:'',total: '',percent: ''})
 
             } catch (error) {
                 console.log(error.response)
-                setFormLoading(false)
+                setFormLoading({...formLoading, loading: false})
                 setPercentage({loaded:'',total: '',percent: ''})
             }
 
@@ -91,7 +97,15 @@ const Form = (props) => {
             formData.append('title', postData.title)
             formData.append('creator', postData.creator)
             formData.append('content', postData.content)
-            setFormLoading(true)
+
+            if(postData.userfile[0].type.includes('audio')){
+                setFormLoading({loading: true, type: 'audio'})
+            }else if(postData.userfile[0].type.includes('video')){
+                setFormLoading({loading: true, type: 'video'})
+            }else if(postData.userfile[0].type.includes('image')){
+                setFormLoading({loading: true, type: 'image'})
+            }
+
             try {
                 await axios.put(`${backEndProURL}/memory-games/${postData.id}`,formData,{
                     headers:{
@@ -105,12 +119,12 @@ const Form = (props) => {
                         setPercentage({loaded: loaded,total: total,percent: percent})
                     }
                 })
-                setFormLoading(false)
+                setFormLoading({...formLoading, loading: false})
                 setPercentage({loaded:'',total: '',percent: ''})
 
             } catch (error) {
                 console.log(error)
-                setFormLoading(false)
+                setFormLoading({...formLoading, loading: false})
                 setPercentage({loaded:'',total: '',percent: ''})
 
             }
