@@ -12,7 +12,6 @@ import {backEndProURL} from '../../../../api/ApiData'
 const Form = (props) => {
 
   const [postData, setPostData] = useState({new: true ,id: '', type: '', title: '',creator: '',content: '', userfile: [], loading: false});
-  const [formLoading, setFormLoading ] = useState({loading:false, type:'image'})
   const [percentage, setPercentage ] = useState({loaded:'',total:'', percent:''})
 
   const {getRootProps, getInputProps} =  useDropzone({
@@ -26,11 +25,6 @@ const Form = (props) => {
 
 
   useEffect(()=>{
-      console.log(formLoading)
-    props.setLoading(formLoading)
-  },[formLoading])
-
-  useEffect(()=>{
       if(props.editPost){
         setPostData({new: false, type: props.editPost.cover.mime, title: props.editPost.title, creator: props.editPost.creator, content: props.editPost.content, id: props.editPost.id})
       }
@@ -38,20 +32,20 @@ const Form = (props) => {
 
   const setType = () =>{
     if(postData.type.includes('audio')){
-        setFormLoading({loading: true, type: 'audio'})
+        props.setLoading({loading: true, type: 'audio'})
     }else if(postData.type.includes('video')){
-        setFormLoading({loading: true, type: 'video'})
+        props.setLoading({loading: true, type: 'video'})
     }else if(postData.type.includes('image')){
-        setFormLoading({loading: true, type: 'image'})
+        props.setLoading({loading: true, type: 'image'})
     }
   }
   const ClearType = () =>{
     if(postData.type.includes('audio')){
-        setFormLoading({loading: false, type: 'audio'})
+        props.setLoading({loading: false, type: 'audio'})
     }else if(postData.type.includes('video')){
-        setFormLoading({loading: false, type: 'video'})
+        props.setLoading({loading: false, type: 'video'})
     }else if(postData.type.includes('image')){
-        setFormLoading({loading: false, type: 'image'})
+        props.setLoading({loading: false, type: 'image'})
     }
   }
 
