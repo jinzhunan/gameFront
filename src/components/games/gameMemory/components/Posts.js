@@ -57,6 +57,8 @@ const Posts = (props) => {
     useEffect(()=>{
         console.log('typeOfFiles')
         console.log(typeOfFiles)
+        setTypeOfFiles(null)
+        setTypeOfFiles(typeOfFiles)
         
     },[typeOfFiles,setTypeOfFiles])
 
