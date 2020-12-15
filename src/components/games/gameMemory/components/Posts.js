@@ -57,9 +57,7 @@ const Posts = (props) => {
     useEffect(()=>{
         console.log('typeOfFiles')
         console.log(typeOfFiles)
-        setTimeout(()=>{
-            setTypeOfFiles(typeOfFiles)
-        },1000)
+        
     },[typeOfFiles,setTypeOfFiles])
 
     useEffect(()=>{
@@ -90,6 +88,8 @@ const Posts = (props) => {
 
                 const dataImg = myfiles1.map((item)=> item.cover.mime.includes('image') ? item : undefined)
                     .filter((item2)=> item2 !== undefined)
+                setTypeOfFiles(dataImg)
+                setTypeOfFiles(null)
                 setTypeOfFiles(dataImg)
                 console.log(dataImg)
                 props.setLoading({loading: false, type: 'image'})
