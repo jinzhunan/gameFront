@@ -226,11 +226,10 @@ const Posts = (props) => {
                                                     }
                                                 })
                                             }
+                                            getData()
                                             setCheckedAudio(false)
                                             setCheckedVid(false)
-                                            setCheckedImg(false)
-                                            
-                                        setCheckedImg(true)
+                                            setCheckedImg(true)
                                         }}
                                         style={{
                                             color: red[500],
