@@ -208,7 +208,7 @@ const Posts = (props) => {
                     typeOfFiles ? typeOfFiles.map((item)=>{
                         console.log(typeOfFiles)
                         return (
-             
+                                        <>
                                         <Typography 
                                             component="span"
                                             onClick={async()=>{
@@ -232,6 +232,8 @@ const Posts = (props) => {
                                             float: 'right'
                                         }}
                                         > edit</Typography>
+                                        <div>{item.creator}</div>
+                                        </>
 
     
                         )
