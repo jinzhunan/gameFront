@@ -60,6 +60,7 @@ const Posts = (props) => {
         }
         if(editLoading===false){
             getData()
+            console.log('editing3')
         }
     },[deleteLoading,editLoading])
 
@@ -67,8 +68,10 @@ const Posts = (props) => {
     useEffect(()=>{
         if(props.loading.loading === true){
             setEditLoading(true)
+            console.log('editing1')
         }else{
             setEditLoading(false)
+            console.log('editing2')
         }
     },[props.loading.loading])
 
