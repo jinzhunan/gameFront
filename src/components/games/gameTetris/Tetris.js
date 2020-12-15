@@ -162,7 +162,10 @@ const Tetris = () => {
 
         <aside>
           {gameOver ? (
-            <Display gameOver={gameOver} text="Game Over" />
+            <>
+              <Display gameOver={gameOver} text="Game Over" />
+              <StartButton callback={startGame} />
+            </>
           ) : (
             
             <div>
@@ -173,13 +176,14 @@ const Tetris = () => {
               }
 
               </ol>}/>
-              <Display text={`${users.userName}`} />
+              <StartButton callback={startGame} />
+              <Display text={`${users.userName}`} />              
+
               <Display text={`Score: ${score}`} />
               <Display text={`rows: ${rows}`} />
               <Display text={`Level: ${level}`} />
             </div>
           )}
-          <StartButton callback={startGame} />
         </aside>
       </StyledTetris>
     </StyledTetrisWrapper>

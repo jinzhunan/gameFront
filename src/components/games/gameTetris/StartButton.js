@@ -6,12 +6,14 @@ const StyledStartButton = styled.button`
 
   margin: 0 0 20px 0;
   padding: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
   min-height: 30px;
-  width: 100%;
+  width: 250px;
   border-radius: 20px;
-  border: none;
-  color: white;
-  background: #333;
+  border: 4px solid green;
+  color: orange;
+  background: darkgreen;
   font-family: Pixel, Arial, Helvetica, sans-serif;
   font-size: 1rem;
   outline: none;
