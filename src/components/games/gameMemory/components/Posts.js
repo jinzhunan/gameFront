@@ -214,6 +214,18 @@ const Posts = (props) => {
                                                     'Authorization': `Bearer ${localStorage.getItem('jwt')}`
                                                 }
                                             }) 
+                                            await axios.delete(`${backEndProURL}/upload/files/${item.cover.id}`,{
+                                                headers:{
+                                                    'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                                                }
+                                            }) 
+                                            if(item.cover2){
+                                                await axios.delete(`${backEndProURL}/upload/files/${item.cover2.id}`,{
+                                                    headers:{
+                                                        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                                                    }
+                                                })
+                                            }
                                             setCheckedAudio(false)
                                             setCheckedVid(false)
                                             setCheckedImg(false)
