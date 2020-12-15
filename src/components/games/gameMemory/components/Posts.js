@@ -196,6 +196,9 @@ const Posts = (props) => {
                             
                         
                         <Card >
+                        <div>
+                                        creator: {item.creator}
+                                    </div>
                         <CardHeader
                             avatar={
                             <Avatar aria-label="recipe">
@@ -218,7 +221,6 @@ const Posts = (props) => {
                         />
                         {
   
-                                // <img src={item.cover.previewUrl}/>
                                 !item.cover2 ? 
                                 <CardMedia
                                 image={item.cover.previewUrl ? item.cover.previewUrl : item.cover.url}
@@ -310,9 +312,6 @@ const Posts = (props) => {
                                     </div>
    
                         </CardContent>
-                        <div>
-                                        content: {item.content}
-                                    </div>
         
                     </Card>
                     </Grid>
