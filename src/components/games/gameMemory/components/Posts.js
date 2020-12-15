@@ -321,12 +321,7 @@ const Posts = (props) => {
                                         }}
                                         > edit</Typography></>
 
-                            <Typography 
-                                    
-                                variant="body2"
-                                 color="textSecondary" >
-                                creator: {item.creator}
-                            </Typography> 
+                                    <div>{item.creator}</div>
                         </CardContent>
         
         
