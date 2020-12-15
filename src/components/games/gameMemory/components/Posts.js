@@ -202,11 +202,13 @@ const Posts = (props) => {
         
         {
             props.loading.loading ? null : (
+                
             <Grid container spacing={2}>
                 {
-                    typeOfFiles ? typeOfFiles.map((item)=>
-                    
-                    <Grid key={item.id} item xs={12} sm={12} md={6} >
+                    typeOfFiles ? typeOfFiles.map((item)=>{
+                        console.log(typeOfFiles)
+                        return (
+                            <Grid key={item.id} item xs={12} sm={12} md={6} >
                             
                         
                         <Card >
@@ -333,6 +335,10 @@ const Posts = (props) => {
         
                     </Card>
                     </Grid>
+                        )
+                    }
+                    
+                    
                     ): <div>refresh or you need raise your level</div>
                 }
                 </Grid> )
