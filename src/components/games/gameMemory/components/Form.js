@@ -100,6 +100,7 @@ const Form = (props) => {
                 ClearType()
                 setPercentage({loaded:'',total: '',percent: ''})
             }
+            window.location.href='https://jinzhu-game.netlify.app/memory'
 
     }else{
             // UPDATE POST
@@ -133,7 +134,6 @@ const Form = (props) => {
                 setPercentage({loaded:'',total: '',percent: ''})
 
             }
-            window.location.href='https://jinzhu-game.netlify.app/memory'
 
             setPostData({ new:true, title:'', creator: '', content: '', id:'', type: '' })
     }
