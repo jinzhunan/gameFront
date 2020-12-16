@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Tetris from './components/games/gameTetris/Tetris';
 import Memory from './components/games/gameMemory/Memory';
+import Shop from './components/games/gameShop/Shop';
 import HomePage from './components/HomePage'
 import Signin from './components/login/Signin'
 import Signup from './components/login/Signup'
@@ -27,6 +28,7 @@ function App() {
         {/* games */}
         <Route exact component={Tetris} path="/tetris"/>
         <Route exact component={Memory} path="/memory"/>
+        <Route exact component={Shop} path="/shop"/>
       </Switch>
     </BrowserRouter>
  

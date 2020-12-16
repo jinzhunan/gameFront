@@ -47,6 +47,16 @@ const BodyPage = () => {
                   levels:['level 2', 'level 3'],
                   setMessage}}/>
 
+                <GamePage content={{
+                  title:'Shop',
+                  subtitle:'game 3',
+                  content1:'It is time to shop',
+                  content2:'I am woring in it. it need level 3',
+                  author:'jinzhu',
+                  href: `${frontEndProURL}/shop`,
+                  levels:['level 3'],
+                  setMessage}}/>
+
               </Grid>
         </>
     )
