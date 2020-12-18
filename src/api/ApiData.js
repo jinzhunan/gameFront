@@ -3,7 +3,7 @@ import axios from 'axios'
 export const backEndDevURL = 'http://localhost:1337'
 export const frontEndDevURL = 'http://localhost:3000'
 
-export const backEndProURL = 'https://strapi-mongo-cloudinary.herokuapp.com'
+export const backEndProURL = 'https://jinzhu-game.herokuapp.com'
 export const frontEndProURL = 'https://jinzhu-game.netlify.app'
 
 

@@ -6,7 +6,7 @@ import axios from 'axios'
 import red from '@material-ui/core/colors/red';
 import grey from '@material-ui/core/colors/grey';
 import lightBlue from '@material-ui/core/colors/lightBlue';
-import {backEndProURL} from '../../../../api/ApiData'
+import {backEndProURL, frontEndProURL} from '../../../../api/ApiData'
   
 
 const Form = (props) => {
@@ -94,7 +94,7 @@ const Form = (props) => {
                 })
                 ClearType()
                 setPercentage({loaded:'',total: '',percent: ''})
-                window.location.href='https://jinzhu-game.netlify.app/memory'
+                window.location.href=`${frontEndProURL}/memory`
 
             } catch (error) {
                 console.log(error.response)
