@@ -17,6 +17,7 @@ export const GamePage = (props) => {
            }else if(props.content.levels[0] === '/'){
                 window.location.href= props.content.href
            }else{
+                window.scrollTo(0,0)
                 props.content.setMessage('raise your level')
            }
       }
