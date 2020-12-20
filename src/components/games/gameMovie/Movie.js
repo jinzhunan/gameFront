@@ -53,8 +53,11 @@ export default function Movie() {
   return (
 
       <Box style={{height:'100vh', paddingTop:'60px'}} display="flex" flexDirection="column" alignItems="center" >
-            <Typography style={{margin:'30px'}} color="secondary" variant="h6">
+            <Typography style={{marginTop:'30px'}} color="secondary" variant="h6">
                 Movie Search
+            </Typography>
+            <Typography style={{marginBottom:'10px'}} color="secondary" variant="h6">
+                It is chinese website, enter chinese
             </Typography>
             <Toolbar style={{width:'100%', display:'flex', justifyContent:'center'}}>
           <div className={classes.search}>
