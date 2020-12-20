@@ -48,8 +48,18 @@ const BodyPage = () => {
                   setMessage}}/>
 
                 <GamePage content={{
-                  title:'Shop',
+                  title:'Movie',
                   subtitle:'game 3',
+                  content1:'many movies',
+                  content2:'you can search moives.',
+                  author:'jinzhu',
+                  href: `${frontEndProURL}/movie`,
+                  levels:['/'],
+                  setMessage}}/>
+                  
+                  <GamePage content={{
+                  title:'Shop',
+                  subtitle:'game 4',
                   content1:'It is time to shop',
                   content2:'I am woring in it. it need level 3',
                   author:'jinzhu',
